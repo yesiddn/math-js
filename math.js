@@ -47,6 +47,14 @@ function calcularTriangulo(lado1, lado2, base, altura) {
   };
 }
 
+function calcularAlturaTrianguloIsosceles(lados, base) {
+  if (lados == base) {
+    return console.warn('Este no es un triángulo isocels');
+  } else {
+    return Math.sqrt(lados ** 2 - base ** 2 / 4);
+  }
+}
+
 console.groupEnd();
 
 // CIRCULO
@@ -57,14 +65,14 @@ const diametroCircle = radioCircle * 2;
 const PI = Math.PI; // .toFixed(4) para redondear a 4 decimales
 
 const circunferencia = diametroCircle * PI;
-const areaCircle = PI * (radioCircle ** 2); // Math.pow(radioCircle, 2)
+const areaCircle = PI * radioCircle ** 2; // Math.pow(radioCircle, 2)
 
 console.log({
   radioCircle,
   diametroCircle,
   PI,
   circunferencia,
-  areaCircle
+  areaCircle,
 });
 
 function calcularCircle(radio) {
