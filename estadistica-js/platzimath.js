@@ -27,9 +27,9 @@ PlatziMath.isArrayPar = function isArrayPar(array) {
 };
 
 PlatziMath.calcularMediana = function calcularMediana(list) {
-  const listaOrdenada = ordenarLista(list);
+  const listaOrdenada = PlatziMath.ordenarLista(list);
 
-  if (isArrayPar(listaOrdenada)) {
+  if (PlatziMath.isArrayPar(listaOrdenada)) {
     const indexMitad1Lista = listaOrdenada.length / 2 - 1;
     const indexMitad2Lista = listaOrdenada.length / 2;
 
