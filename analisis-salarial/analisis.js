@@ -1,9 +1,9 @@
 // ANÁLISIS PERSONAL PARA JUANITA
 function findPerson(personaEnBusqueda) {
-  return salarios.find(persona => persona.name === personaEnBusqueda);
+  return salarios.find((persona) => persona.name === personaEnBusqueda);
 }
 
-function historialSalarial(nombrePersona) {
+function historialSalarialPersonal(nombrePersona) {
   const trabajos = findPerson(nombrePersona).trabajos;
   const salarios = trabajos.map((trabajo) => trabajo.salario);
 
@@ -12,7 +12,7 @@ function historialSalarial(nombrePersona) {
 
 // Mediana de salarios de todos los trabajos
 function medianaSalarialPersonal(nombrePersona) {
-  const salarios = historialSalarial(nombrePersona);
+  const salarios = historialSalarialPersonal(nombrePersona);
 
   const medianaSalarial = PlatziMath.calcularMediana(salarios);
 
@@ -37,7 +37,7 @@ function porcentajeCrecimientoSalarial(salarios) {
 }
 
 function proyeccionSalarialPersonal(nombrePersona) {
-  const salarios = historialSalarial(nombrePersona);
+  const salarios = historialSalarialPersonal(nombrePersona);
 
   const porcentajeCrecimiento = porcentajeCrecimientoSalarial(salarios);
 
@@ -46,4 +46,55 @@ function proyeccionSalarialPersonal(nombrePersona) {
   const proyeccion = salarios[salarios.length - 1] * (1 + medianaPorcentajes);
 
   return proyeccion;
+}
+
+// ANÁLISIS SALARIAL POR EMPRESA
+function historialSalarialEmpresarial(nameEmpresa) {
+  // const empresas = {};
+  
+/*
+  empresas = {
+    empresa: {
+      year: [salarios...]
+    }
+  } 
+*/
+  const empresa = {};
+  
+/*
+  empresa = {
+    year: [salarios]
+  };
+*/
+
+  // EMPRESA EN ESPECIFICO
+  salarios.forEach(persona => {
+    persona.trabajos.forEach(trabajo => {
+      if (trabajo.empresa === nameEmpresa) {
+        if (!empresa[trabajo.year]) {
+          empresa[trabajo.year] = [];
+        }
+
+        empresa[trabajo.year].push(trabajo.salario);
+      }
+
+    });
+  });
+
+  // EMPRESAS EN GENERAL
+  // salarios.forEach((persona) => {
+  //   persona.trabajos.forEach((trabajo) => {
+  //     if (!empresas[trabajo.empresa]) {
+  //       empresas[trabajo.empresa] = {};
+  //     }
+
+  //     if (!empresas[trabajo.empresa][trabajo.year]) {
+  //       empresas[trabajo.empresa][trabajo.year] = [];
+  //     }
+
+  //     empresas[trabajo.empresa][trabajo.year].push(trabajo.salario);
+  //   });
+  // });
+
+  return empresa;
 }
