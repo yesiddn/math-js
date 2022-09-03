@@ -77,9 +77,12 @@ function historialSalarialEmpresarial(nameEmpresa) {
 
         empresa[trabajo.year].push(trabajo.salario);
       }
-
     });
   });
+
+  if (Object.entries(empresa).length === 0) {
+    return false;
+  }
 
   // EMPRESAS EN GENERAL
   // salarios.forEach((persona) => {
@@ -97,4 +100,16 @@ function historialSalarialEmpresarial(nameEmpresa) {
   // });
 
   return empresa;
+}
+
+function medianaSalarialEmpresarial(nameEmpresa, year) {
+  const empresa = historialSalarialEmpresarial(nameEmpresa);
+  
+  if (!empresa) {
+    return 'No existe la empresa';
+  }
+
+  const medianaSalarial = PlatziMath.calcularMediana(empresa[year]);
+
+  return medianaSalarial;
 }
