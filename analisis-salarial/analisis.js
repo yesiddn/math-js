@@ -106,7 +106,11 @@ function medianaSalarialEmpresarial(nameEmpresa, year) {
   const empresa = historialSalarialEmpresarial(nameEmpresa);
   
   if (!empresa) {
-    return 'No existe la empresa';
+    return `No existe la empresa ${nameEmpresa}`;
+  }
+
+  if (!empresa[year]) {
+    return `No exite el año: ${year}`;
   }
 
   const medianaSalarial = PlatziMath.calcularMediana(empresa[year]);
