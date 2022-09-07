@@ -70,9 +70,9 @@ salarios.push({
     { year: 2018, empresa: 'Freelance', salario: 500 },
     { year: 2019, empresa: 'Freelance', salario: 500 },
     { year: 2020, empresa: 'Freelance', salario: 600 },
-    { year: 2021, empresa: 'Mokepon', salario: 1100 },
-    { year: 2022, empresa: 'Mokepon', salario: 1100 },
-    { year: 2023, empresa: 'Mokepon', salario: 1100 },
+    { year: 2021, empresa: 'Industrias Mokepon', salario: 1100 },
+    { year: 2022, empresa: 'Industrias Mokepon', salario: 1100 },
+    { year: 2023, empresa: 'Industrias Mokepon', salario: 1100 },
   ],
 });
 salarios.push({
@@ -81,9 +81,9 @@ salarios.push({
     { year: 2018, empresa: 'Freelance', salario: 400 },
     { year: 2019, empresa: 'Freelance', salario: 500 },
     { year: 2020, empresa: 'Freelance', salario: 500 },
-    { year: 2021, empresa: 'Mokepon', salario: 1100 },
-    { year: 2022, empresa: 'Mokepon', salario: 1100 },
-    { year: 2023, empresa: 'Mokepon', salario: 1200 },
+    { year: 2021, empresa: 'Industrias Mokepon', salario: 1100 },
+    { year: 2022, empresa: 'Industrias Mokepon', salario: 1100 },
+    { year: 2023, empresa: 'Industrias Mokepon', salario: 1200 },
   ],
 });
 salarios.push({
