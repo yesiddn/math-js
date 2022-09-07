@@ -27,16 +27,7 @@ function porcentajeCrecimientoSalarial(salarios) {
 }
 
 // Devuelve un objeto con el historial salarial de una empresa en años
-function historialSalarialEmpresarial(nameEmpresa) {
-  // const empresas = {};
-
-  /*
-  empresas = {
-    empresa: {
-      year: [salarios...]
-    }
-  } 
-*/
+function historialSalarialByCompany(nameEmpresa) {
   const empresa = {};
 
   /*
@@ -62,22 +53,37 @@ function historialSalarialEmpresarial(nameEmpresa) {
     return false;
   }
 
-  // EMPRESAS EN GENERAL
-  // salarios.forEach((persona) => {
-  //   persona.trabajos.forEach((trabajo) => {
-  //     if (!empresas[trabajo.empresa]) {
-  //       empresas[trabajo.empresa] = {};
-  //     }
-
-  //     if (!empresas[trabajo.empresa][trabajo.year]) {
-  //       empresas[trabajo.empresa][trabajo.year] = [];
-  //     }
-
-  //     empresas[trabajo.empresa][trabajo.year].push(trabajo.salario);
-  //   });
-  // });
-
   return empresa;
+}
+
+// Devuelve un objeto con el historial salarial de las empresa en años
+function historialSalarialEmpresarial() {
+  const empresas = {};
+
+  /*
+  empresas = {
+    empresa: {
+      year: [salarios...]
+    }
+  } 
+*/
+
+  // EMPRESAS EN GENERAL
+  salarios.forEach((persona) => {
+    persona.trabajos.forEach((trabajo) => {
+      if (!empresas[trabajo.empresa]) {
+        empresas[trabajo.empresa] = {};
+      }
+
+      if (!empresas[trabajo.empresa][trabajo.year]) {
+        empresas[trabajo.empresa][trabajo.year] = [];
+      }
+
+      empresas[trabajo.empresa][trabajo.year].push(trabajo.salario);
+    });
+  });
+
+  return empresas;
 }
 
 // Mediana de salarios de todos los trabajos
@@ -103,8 +109,8 @@ function proyeccionSalarialPersonal(nombrePersona) {
 }
 
 // ANÁLISIS SALARIAL POR EMPRESA
-function medianaSalarialEmpresarialPorYear(nameEmpresa, year) {
-  const empresa = historialSalarialEmpresarial(nameEmpresa);
+function medianaSalarialEmpresarialYear(nameEmpresa, year) {
+  const empresa = historialSalarialByCompany(nameEmpresa);
 
   if (!empresa) {
     return `No existe la empresa ${nameEmpresa}`;
@@ -121,7 +127,7 @@ function medianaSalarialEmpresarialPorYear(nameEmpresa, year) {
 
 // Proyección del salario minimo emprpesarial del siguiente año
 function proyeccionSalarialMinimaEmpresarial(nameEmpresa) {
-  const empresa = historialSalarialEmpresarial(nameEmpresa);
+  const empresa = historialSalarialByCompany(nameEmpresa);
   const salarios = [];
   const porcentajeCrecimientoInicial = 0.1;
 
@@ -130,7 +136,8 @@ function proyeccionSalarialMinimaEmpresarial(nameEmpresa) {
   }
 
   for (const year in empresa) {
-    salarios.push(empresa[year][0]);
+    const salariosYear = PlatziMath.ordenarLista(empresa[year]);
+    salarios.push(salariosYear[0]);
   }
 
   const porcentajeCrecimiento = porcentajeCrecimientoSalarial(salarios);
@@ -138,12 +145,35 @@ function proyeccionSalarialMinimaEmpresarial(nameEmpresa) {
   const medianaPorcentajes = PlatziMath.calcularMediana(porcentajeCrecimiento);
 
   if (medianaPorcentajes === 0) {
-    const proyeccion = salarios[salarios.length - 1] * (1 + porcentajeCrecimientoInicial);
-
+    const proyeccion =
+    salarios[salarios.length - 1] * (1 + porcentajeCrecimientoInicial);
+    
     return proyeccion;
   }
 
   const proyeccion = salarios[salarios.length - 1] * (1 + medianaPorcentajes);
+
+  return proyeccion;
+}
+
+function proyeccionSalarialEmpresarial(nameEmpresa) {
+  const empresas = historialSalarialEmpresarial();
+
+  if (!empresas[nameEmpresa]) {
+    return `No existe la empresa ${nameEmpresa}`;
+  }
+
+  const empresaYears = Object.keys(empresas[nameEmpresa]);
+  const listaMedianaSalarialYears = empresaYears.map(year => {
+    return medianaSalarialEmpresarialYear(nameEmpresa, year);
+  });
+
+  const porcentajeCrecimiento = porcentajeCrecimientoSalarial(listaMedianaSalarialYears);
+  const medianaPorcentajes = PlatziMath.calcularMediana(porcentajeCrecimiento);
+
+  const ultimaMedinaSalarial = listaMedianaSalarialYears[listaMedianaSalarialYears.length - 1];
+
+  const proyeccion = ultimaMedinaSalarial * (1 + medianaPorcentajes);
 
   return proyeccion;
 }
