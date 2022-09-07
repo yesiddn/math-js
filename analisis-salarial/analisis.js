@@ -92,7 +92,7 @@ function medianaSalarialPersonal(nombrePersona) {
 
   const medianaSalarial = PlatziMath.calcularMediana(salarios);
 
-  console.log(medianaSalarial);
+  return medianaSalarial;
 }
 
 // Proyección salarial del siguiente año
@@ -146,8 +146,8 @@ function proyeccionSalarialMinimaEmpresarial(nameEmpresa) {
 
   if (medianaPorcentajes === 0) {
     const proyeccion =
-    salarios[salarios.length - 1] * (1 + porcentajeCrecimientoInicial);
-    
+      salarios[salarios.length - 1] * (1 + porcentajeCrecimientoInicial);
+
     return proyeccion;
   }
 
@@ -164,16 +164,54 @@ function proyeccionSalarialEmpresarial(nameEmpresa) {
   }
 
   const empresaYears = Object.keys(empresas[nameEmpresa]);
-  const listaMedianaSalarialYears = empresaYears.map(year => {
+  const listaMedianaSalarialYears = empresaYears.map((year) => {
     return medianaSalarialEmpresarialYear(nameEmpresa, year);
   });
 
-  const porcentajeCrecimiento = porcentajeCrecimientoSalarial(listaMedianaSalarialYears);
+  const porcentajeCrecimiento = porcentajeCrecimientoSalarial(
+    listaMedianaSalarialYears
+  );
   const medianaPorcentajes = PlatziMath.calcularMediana(porcentajeCrecimiento);
 
-  const ultimaMedinaSalarial = listaMedianaSalarialYears[listaMedianaSalarialYears.length - 1];
+  const ultimaMedinaSalarial =
+    listaMedianaSalarialYears[listaMedianaSalarialYears.length - 1];
 
   const proyeccion = ultimaMedinaSalarial * (1 + medianaPorcentajes);
 
   return proyeccion;
+}
+
+// ANÁLISIS GENERAL SALARIAL
+function medianaGeneral() {
+  const listaMedianas = salarios.map((persona) =>
+    medianaSalarialPersonal(persona.name)
+  );
+
+  const mediana = PlatziMath.calcularMediana(listaMedianas);
+
+  return mediana;
+}
+
+function medianaTop10() {
+  const listaMedianas = PlatziMath.ordenarLista(
+    salarios.map((persona) => medianaSalarialPersonal(persona.name))
+  );
+
+  const cantidad = listaMedianas.length * 0.1;
+  console.log(cantidad);
+  const limite = listaMedianas.length - cantidad;
+  console.log(limite);
+
+  // const top10 = listaMedianas.splice(limite, listaMedianas.length);
+  // Este metodo muta el array original sacando los elementos
+  
+  const top10 = listaMedianas.slice(limite, listaMedianas.length);
+  // .slice() extrae todos los elementos
+  // .slice(-2) extrae los ultimos 2 elementos
+  // .slice(18) extrae desde el elemento 18 hasta el final .slice(18, lista.length)
+  // .slice(2, -2) extrae desde el elemento 2 hasta el penultimo elemento
+
+  const mediana = PlatziMath.calcularMediana(top10);
+
+  return mediana;
 }
