@@ -58,9 +58,10 @@ PlatziMath.ordenarListaBidimensional = function ordenarListaBidimensional(arr) {
 };
 
 PlatziMath.calcularModa = function calcularModa(list) {
-  const listObject = listRepeatedElements(list);
+  const listObject = PlatziMath.listRepeatedElements(list);
   const listArray = Object.entries(listObject);
-  const listOrdenada = ordenarListaBidimensional(listArray);
+  const listOrdenada = PlatziMath.ordenarListaBidimensional(listArray);
+
   const listMaxNumber = listOrdenada[listOrdenada.length - 1];
   const listMaxNumerBefore = listOrdenada[listOrdenada.length - 2];
 
