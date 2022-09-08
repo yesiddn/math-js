@@ -6,7 +6,7 @@ function historialSalarialPersonal(nombrePersona) {
   const trabajos = findPerson(nombrePersona).trabajos;
   const salarios = trabajos.map((trabajo) => trabajo.salario);
 
-  return salarios;
+  return salarios; // [salarios...]
 }
 
 // Devuelve un array con el porcentaje de crecimiento de cada salario anual
